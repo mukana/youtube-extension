@@ -1,4 +1,4 @@
-/*! showdown-youtube 14-09-2017 */
+/*! showdown-youtube 31-07-2018 */
 (function (extension) {
   'use strict';
 
@@ -16,22 +16,22 @@
   'use strict';
 
   var svg =
-      '<div class="youtube-preview" style="width:%2; height:%3; background-color:#333; position:relative;">' +
-      '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" ' +
-      '     width="100" height="70" viewBox="0 0 100 70"' +
-      '     style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">' +
-      '    <defs>' +
-      '      <linearGradient id="grad1" x1="0%" x2="0%" y1="0%" y2="100%">' +
-      '        <stop offset="0%" style="stop-color:rgb(229,45,49);stop-opacity:1" />' +
-      '        <stop offset="100%" style="stop-color:rgb(191,23,29);stop-opacity:1" />' +
-      '      </linearGradient>' +
-      '    </defs>' +
-      '    <rect width="100%" height="100%" rx="26" fill="url(#grad1)"/>' +
-      '    <polygon points="35,20 70,35 35,50" fill="#fff"/>' +
-      '    <polygon points="35,20 70,35 64,37 35,21" fill="#e8e0e0"/>' +
-      '</svg>' +
-      '<div style="text-align:center; padding-top:10px; color:#fff"><a href="%1">%1</a></div>' +
-      '</div>',
+    '<div class="youtube-preview" style="width:%2; height:%3; background-color:#333; position:relative;">' +
+    '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" ' +
+    '     width="100" height="70" viewBox="0 0 100 70"' +
+    '     style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">' +
+    '    <defs>' +
+    '      <linearGradient id="grad1" x1="0%" x2="0%" y1="0%" y2="100%">' +
+    '        <stop offset="0%" style="stop-color:rgb(229,45,49);stop-opacity:1" />' +
+    '        <stop offset="100%" style="stop-color:rgb(191,23,29);stop-opacity:1" />' +
+    '      </linearGradient>' +
+    '    </defs>' +
+    '    <rect width="100%" height="100%" rx="26" fill="url(#grad1)"/>' +
+    '    <polygon points="35,20 70,35 35,50" fill="#fff"/>' +
+    '    <polygon points="35,20 70,35 64,37 35,21" fill="#e8e0e0"/>' +
+    '</svg>' +
+    '<div style="text-align:center; padding-top:10px; color:#fff"><a href="%1">%1</a></div>' +
+    '</div>',
     img = '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" width="%2" height="%3">',
     iframe = '<iframe src="%1" width="%2" height="%3" frameborder="0" allowfullscreen></iframe>',
     imgRegex = /(?:<p>)?<img.*?src="(.+?)"(.*?)\/?>(?:<\/p>)?/gi,
@@ -65,6 +65,13 @@
       height: height
     };
   }
+  showdown.extension('targetlink', function () {
+    return [{
+      type: 'html',
+      regex: /(<a [^>]+?)(>.*<\/a>)/g,
+      replace: '$1 target="_blank"$2'
+    }];
+  });
   showdown.extension('youtube', function () {
     return [
       {
